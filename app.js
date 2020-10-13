@@ -64,27 +64,24 @@ for (let i = 0; i < radios.length; i++) {
                 encounteredPokemon = {
                     pokeName: radio.value,
                     encountered: 1, 
-                    captured: 0},
+                    captured: 0 
+                },
                 pokemonResults.push(encounteredPokemon);
             } else {
-                encounteredPokemon++;
+                encounteredPokemon.encountered++;
             }
             
         });
-        // console.log(pokemonResults, 'This is the one');
 
         for (let i = 0; i < radios.length; i++) {
             radios[i].disabled = true;
             images[i].style.opacity = .5;
         }
 
-        const playerSelectedPokemon = e.target.value;
-        console.log(pokemonResults, e.target.value);
-      
 
         let capturedPokemon = findByName(pokemonResults, e.target.value);
-        console.log(capturedPokemon);
-        capturedPokemon.capture++;
+        console.log(capturedPokemon, 'let');
+        capturedPokemon.captured++;
 
 
         renderRandomPokemon();
@@ -97,14 +94,20 @@ function findByName(pokemonResults, pokemonName) {
     for (let i = 0; i < pokemonResults.length; i++) {
         const capturedPokemon = pokemonResults[i];
 
-        console.log(capturedPokemon, 'are you working');
     
-        if (capturedPokemon.pokemon === pokemonName) {
-            return capturedPokemon.pokemon;
+        if (capturedPokemon.pokeName === pokemonName) {
+            return capturedPokemon;
         }
     }
 }
 
+moreButton.addEventListener('click', () => {
+    for (let i = 0; i < radios.length; i++) {
+        radios[i].disabled = false;
+        images[i].style.opacity = 100;
+}
+    renderRandomPokemon();
+});
 // Find Encountered Pokemon By ID function to push into capturedPokemonArray for results
 
 //encounteredPokemonArray.push(firstPokemon.id, secondPokemon.id, thirdPokemon.id);
@@ -118,14 +121,7 @@ function findByName(pokemonResults, pokemonName) {
 
 
 //no longer need this:
-// moreButton.addEventListener('click', () => {
-//     capturedPokemon++;
-//       console.log(capturedPokemon);
-//     // How do I tick up x3 encountered
-//       encounteredPokemon++;
-//       console.log(encounteredPokemon);
-//     renderRandomPokemon();
-//   });
+
 
        // Results Array
         // pokemonResults.push(
