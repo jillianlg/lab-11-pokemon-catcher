@@ -1,11 +1,13 @@
 // import functions and grab DOM elements
 import { rawPokemonData } from './pokemon-data.js';
+// import { getRandomPokemon, renderRandomPokemon, findByName } from './pokemon-utils.js';
 
 const images = document.querySelectorAll('label > img');
 const radios = document.querySelectorAll('input');
 const caughtDiv = document.querySelector('#caught-div');
-const captured = document.querySelector('#captured-pokemon');
 const moreButton = document.querySelector('button');
+//Add back it if you get a chance to render pokemon neam on UX
+// const captured = document.querySelector('#captured-pokemon');
 
 // initialize state
 let captures = 10;
@@ -45,8 +47,6 @@ function renderRandomPokemon() {
     
     radios[2].value = thirdPokemon.pokemon;
     images[2].src = thirdPokemon.url_image;
-
-    // encounteredPokemonArray.push(firstPokemon.id, secondPokemon.id, thirdPokemon.id);
 }
 renderRandomPokemon();
 
@@ -54,8 +54,8 @@ renderRandomPokemon();
 // set event listeners to update state and DOM
 for (let i = 0; i < radios.length; i++) {
     radios[i].addEventListener('change', (e) => {	
-      
-        captures--;
+        
+
         caughtDiv.classList.remove('hidden');
 
         radios.forEach((radio) => {
@@ -80,11 +80,11 @@ for (let i = 0; i < radios.length; i++) {
 
 
         let capturedPokemon = findByName(pokemonResults, e.target.value);
-        console.log(capturedPokemon, 'let');
         capturedPokemon.captured++;
 
-
-        renderRandomPokemon();
+    console.log(pokemonResults);
+  
+        // renderRandomPokemon();
 
     });
 }
@@ -102,38 +102,16 @@ function findByName(pokemonResults, pokemonName) {
 }
 
 moreButton.addEventListener('click', () => {
+    captures--;
+    // console.log(captures);
     for (let i = 0; i < radios.length; i++) {
         radios[i].disabled = false;
         images[i].style.opacity = 100;
-}
+    }
+    if (captures === 0) {
+        // radios[i].disabled = true;
+      
+        window.location.href = '../results/index.html';
+    }
     renderRandomPokemon();
 });
-// Find Encountered Pokemon By ID function to push into capturedPokemonArray for results
-
-//encounteredPokemonArray.push(firstPokemon.id, secondPokemon.id, thirdPokemon.id);
-
-// function showResults() {
-//   if (capturedPokemo.length === 10) {
-//     how to I triger the results page
-//       alert('done!');
-//   }
-// };
-
-
-//no longer need this:
-
-
-       // Results Array
-        // pokemonResults.push(
-        //     { pokeName: firstPokemon.pokemon, 
-        //         encountered: 1, 
-        //         captured: 0},
-
-        //     { pokeName: secondPokemon.pokemon, 
-        //         encountered: 1, 
-        //         captured: 0},
-
-        //     { pokeName: thirdPokemon.pokemon, 
-        //         encountered: 1, 
-        //         captured: 0}
-        // );
