@@ -30,4 +30,4 @@ On the pokemon page, we need these HTML elements to interact with:
 - Reset button
     - Return player to main Pokemon page.
 
-_Refer to assets folder planning wireframe_
+_Refer to assets folder planning diagram_
