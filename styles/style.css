@@ -15,9 +15,9 @@ body {
     background-color: var(--color2);
 }
 
-.hidden {
+/* .hidden {
     display: none;
-}
+} */
 
 label > img {
     width: 200px;
