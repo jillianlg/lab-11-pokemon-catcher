@@ -1,6 +1,6 @@
 // import functions and grab DOM elements
 import { rawPokemonData } from './pokemon-data.js';
-import { getRandomPokemon, findByName, setInLocalStorage } from './pokemon-utils.js';
+import { getRandomPokemon, findByName, setInLocalStorage, getNewEncounter, incrementEncounters, incrementCaptures } from './pokemon-utils.js';
 // import { images, radios, caughtDiv, moreButton } from './pokemon-const.js';
 
 const images = document.querySelectorAll('label > img');
@@ -41,37 +41,21 @@ renderRandomPokemon();
 // set event listeners to update state and DOM
 for (let i = 0; i < radios.length; i++) {
     radios[i].addEventListener('change', (e) => {	
-        
-
+        incrementEncounters(pokemonResults, radios[i].value);
+    console.log(e.target.value);
         caughtDiv.classList.remove('hidden');
 
-        radios.forEach((radio) => {
-            let pokeData = findByName(rawPokemonData, e.target.value);
-            console.log(radio.value);
-            let encounteredPokemon = findByName(pokemonResults, radio.value);
-            if (!encounteredPokemon) {
-                encounteredPokemon = {
-                    pokeName: radio.value,
-                    pokeImg: pokeData.url_image,
-                    encountered: 1, 
-                    captured: 0 
-                },
-                pokemonResults.push(encounteredPokemon);
-            } else {
-                encounteredPokemon.encountered++;
-            }
-            
-        });
+        // radios.forEach((radio) => {
+        //     incrementEncounters(pokemonResults, radio.value);
+        // });
 
         for (let i = 0; i < radios.length; i++) {
             radios[i].disabled = true;
             images[i].style.opacity = .5;
         }
+        incrementCaptures(pokemonResults, e.target.value);
 
-        let capturedPokemon = findByName(pokemonResults, e.target.value);
-        capturedPokemon.captured++;
-
-    console.log(pokemonResults);
+            console.log(pokemonResults);
 
         setInLocalStorage('RESULTS', pokemonResults);
     });

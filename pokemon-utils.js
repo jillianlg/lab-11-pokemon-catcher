@@ -22,6 +22,36 @@ export function findByName(pokemonResults, pokemonName) {
     }
 }
 
+// Get new encounter function
+export function getNewEncounter(someArray, pokemoneName) {
+    let pokeData = findByName(rawPokemonData, pokemoneName);
+    const encounteredPokemon = {
+        pokeName: pokeData.pokemon,
+        pokeImg: pokeData.url_image,
+        encountered: 0, 
+        captured: 0
+    };
+    someArray.push(encounteredPokemon);
+}
+// Get new capture function
+export function incrementCaptures(someArray, pokemoneName) {
+    let pokeData = findByName(someArray, pokemoneName);
+    if (!pokeData) {
+        getNewEncounter(someArray, pokemoneName);
+        pokeData = findByName(someArray, pokemoneName);
+    }
+    pokeData.captured++;
+}
+// Get new capture function
+export function incrementEncounters(someArray, pokemoneName) {
+    let pokeData = findByName(someArray, pokemoneName);
+    if (!pokeData) {
+        getNewEncounter(someArray, pokemoneName);
+        pokeData = findByName(someArray, pokemoneName);
+    }
+    pokeData.encountered++;
+}
+
 // GET localStorage function
 export function getFromLocalStorage(key) {
     const item = localStorage.getItem(key);
