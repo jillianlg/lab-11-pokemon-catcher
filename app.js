@@ -1,131 +1,95 @@
 // import functions and grab DOM elements
 import { rawPokemonData } from './pokemon-data.js';
+import { getRandomPokemon, findByName, setInLocalStorage } from './pokemon-utils.js';
+// import { images, radios, caughtDiv, moreButton } from './pokemon-const.js';
 
-const images = document.querySelectorAll('label > img');
-const radios = document.querySelectorAll('input');
-const caughtDiv = document.querySelector('#caught-div');
-const captured = document.querySelector('#captured-pokemon');
-const moreButton = document.querySelector('button');
+export const images = document.querySelectorAll('label > img');
+export const radios = document.querySelectorAll('input');
+export const caughtDiv = document.querySelector('#caught-div');
+export const moreButton = document.querySelector('button');
+//Add back it if you get a chance to render pokemon neam on UX
+// const captured = document.querySelector('#captured-pokemon');
 
 // initialize state
 let captures = 10;
-let capturedPokemon = 0;
-let encounteredPokemon = 0;
-let capturedPokemonArray = [];
-let encounteredPokemonArray = [];
+let pokemonResults = [];
 
-
-
-function getRandomPokemon(someArray) {
-    const index = Math.floor(Math.random() * someArray.length);
-
-    return someArray[index];
-}
-
-
-// Render Random Pokemon
-function renderRandomPokemon() {
+// Render Random Pokemon Fuction - loops through raw data to update DOM
+export function renderRandomPokemon() {
 
     let firstPokemon = getRandomPokemon(rawPokemonData);
     let secondPokemon = getRandomPokemon(rawPokemonData);
     let thirdPokemon = getRandomPokemon(rawPokemonData);
     
-    while (firstPokemon.id === secondPokemon.id) {
+    while (firstPokemon.id === secondPokemon.id || secondPokemon.id === thirdPokemon.id || thirdPokemon.id === firstPokemon.id) {
         firstPokemon = getRandomPokemon(rawPokemonData);
-    }
-    while (secondPokemon.id === thirdPokemon.id) {
         secondPokemon = getRandomPokemon(rawPokemonData);
-    }
-    while (thirdPokemon.id === firstPokemon.id) {
         thirdPokemon = getRandomPokemon(rawPokemonData);
     }
+    // while (secondPokemon.id === thirdPokemon.id) {
+        
+    // }
+    // while (thirdPokemon.id === firstPokemon.id) {
+        
+    // }
     
-    radios[0].value = firstPokemon.id;
+    radios[0].value = firstPokemon.pokemon;
     images[0].src = firstPokemon.url_image;
     
-    radios[1].value = secondPokemon.id;
+    radios[1].value = secondPokemon.pokemon;
     images[1].src = secondPokemon.url_image;
     
-    radios[2].value = thirdPokemon.id;
+    radios[2].value = thirdPokemon.pokemon;
     images[2].src = thirdPokemon.url_image;
-
 }
-
 renderRandomPokemon();
 
 // set event listeners to update state and DOM
+for (let i = 0; i < radios.length; i++) {
+    radios[i].addEventListener('change', (e) => {	
+        
+
+        caughtDiv.classList.remove('hidden');
+
+        radios.forEach((radio) => {
+            let encounteredPokemon = findByName(pokemonResults, radio.value);
+            if (!encounteredPokemon) {
+                encounteredPokemon = {
+                    pokeName: radio.value,
+                    encountered: 1, 
+                    captured: 0 
+                },
+                pokemonResults.push(encounteredPokemon);
+            } else {
+                encounteredPokemon.encountered++;
+            }
+            
+        });
+
+        for (let i = 0; i < radios.length; i++) {
+            radios[i].disabled = true;
+            images[i].style.opacity = .5;
+        }
+
+        let capturedPokemon = findByName(pokemonResults, e.target.value);
+        capturedPokemon.captured++;
+
+    console.log(pokemonResults);
+
+        setInLocalStorage('RESULTS', pokemonResults);
+    });
+}
 
 moreButton.addEventListener('click', () => {
-    capturedPokemon++;
-      console.log(capturedPokemon);
-    encounteredPokemon++;
-      console.log(encounteredPokemon);
-    encounteredPokemon++;
-      console.log(encounteredPokemon);
-    encounteredPokemon++;
-      console.log(encounteredPokemon);
+    captures--;
+    // console.log(captures);
+    for (let i = 0; i < radios.length; i++) {
+        radios[i].disabled = false;
+        images[i].style.opacity = 100;
+    }
+    if (captures === 0) {
+        // radios[i].disabled = true;
+        window.location.href = '../results/index.html';
+    }
     renderRandomPokemon();
-  });
-  
-  // change to FIND BY ID
-  // function removeById(someId) {
-    //   for (let i = 0; i < remainingTrees.length; i++) {
-      //       if (someId === remainingTrees[i].id) {
-        //           remainingTrees.splice(i, 1);
-        //       }    
-        //   }
-        // }
-//encounteredPokemonArray.push(firstPokemon.id, secondPokemon.id, thirdPokemon.id);
-
-// function showResults() {
-//   if (capturedPokemo.length === 10) {
-//     how to I triger the results page
-//       alert('done!');
-//   }
-
-//   caughtDiv.classList.add('hidden');
-
-//   for (let i = 0; i < radios.length; i++) {
-//       radios[i].disabled = false;
-//       radios[i].checked = false;
-//       images[i].style.opacity = 1;
-//   } 
-
-  // for (let i = 0; i < radios.length; i++) {
-  //   radios[i].addEventListener('change', (e) => {	
-  //     captures--;
-
-  //     const playerCapturedPokemon(e.target.value);
-  //     console.log(playerCapturedPokemon);
-  //     capturedPokemonArray.push(playerCapturedPokemon);
-  //     console.log(capturedPokemonArray);
-  //   }
-    
-  // };
-
-      // for (let i = 0; i < radios.length; i++) {
-      //     radios[i].disabled = true;
-      //     images[i].style.opacity = .5;
-      // } 
-
-      // const playerCapturedPokemon = e.target.value === capturedPokemon.id;
-      
-
-      // console.log(playerCapturedPokemon);
-
-      // if (playerCapturedPokemon) {
-      //   //I I am not removing anything what is this function doing?
-      //   removeById(e.target.value);
-      //   } else {
-      //     capturedPokemon.push(e.target.value);
-      //     // needs a funcution to call onLoad and onClick
-      //     encounteredPokemonArray.push(firstPokemon.id, secondPokemon.id, thirdPokemon.id);
-      //   }
-
-          
-    //     capturedPokemon++;
-    //     encounteredPokemon++;
-    //     caughtDiv.classList.toggle('hidden');
-  
-  
-    // }
+});
