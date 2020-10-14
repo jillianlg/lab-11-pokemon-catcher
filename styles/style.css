@@ -1,12 +1,21 @@
 
+@font-face {
+    font-family: "pokemon";
+    src: url('../assets/Pokemon\ Solid.ttf');
+}
+@font-face {
+    font-family: "pokemon-outline";
+    src: url('../assets/Pokemon\ Hollow.ttf');
+}
+
 body {
-    --color1: #ffffff;
-    --color2: #ffffff;
-    --color3: #FFDE00;
+    --color1: #CC0000;
+    --color2: #FFDE00;
+    --color3: #3B4CCA;
     --color4: #ffffff;
     --color5: #ffffff;
     
-    --header-height: 80px;
+    --header-height: 100px;
     --shadow: 0px 10px 20px -12px rgba(0,0,0,0.45);
     --gutter: 30px;
     --footer-height: 25px;
@@ -37,6 +46,17 @@ label > input {
     /* background-image: url('../assets/Poke_Ball.png'); */
 }
 
+button {
+    background-color: var(--color3);
+    color: #FFDE00;
+    border-radius: 5px;
+    border-color: ;
+    width: 100px;
+    height: 40px;
+    font-family: pokemon-outline;
+    margin-bottom: 10px;
+}
+
 main {
     display: flex;
     flex-direction: column;
@@ -45,26 +65,23 @@ main {
     margin-bottom: calc(var(--footer-height));
 }
 
+.main-img {
+    margin-top: 20px;
+}
 section {
-    /* background-color: var(--color5); */
     background-color: rgba(255, 255, 255, 0.80);
-    /* width: 1000px; */
     max-width: 80%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* padding-top: var(--gutter); */
-    /* padding-bottom: var(--gutter); */
     margin-top: 20px;
-    /* margin-bottom: var(--gutter); */
-    /* border: solid 2px var(--color1); */
 }
 
 header {
     display: flex;
     justify-content: flex-end;
-    background-color: var(--color3);
+    background-color: var(--color2);
     height: var(--header-height);
     box-shadow: var(--shadow);
 }
@@ -72,7 +89,7 @@ header {
 footer {
     display: flex;
     justify-content: flex-end;
-    background-color: var(--color3);
+    background-color: var(--color2);
     box-shadow: var(--shadow);
 }
 
@@ -84,17 +101,12 @@ h2 {
 
 .gutter-right {
     margin-right: 20px;
-}
-
-.main-logo {
-    animation: pulse 5s infinite ease-in-out;
+    margin-top: 15px;
 }
 
 header img {
-    height: var(--header-height);
+    height: 70px;
 }
-
-
 
 content {
     width: 80%;
@@ -103,7 +115,7 @@ content {
 p {
     margin: var(--gutter);
 }
-  
+
 footer {
     position: fixed;
     width: 100%;
@@ -111,25 +123,6 @@ footer {
     height: var(--footer-height);
     display: flex;
     justify-content: flex-end;
-    background-color: var(--color3);
+    background-color: var(--color2);
     box-shadow: var(--shadow);
 }
-  
-  @keyframes pulse {
-    20% {
-      transform: rotate3d(-10, -10, -10, 50deg) scale(1.2);
-    }
-
-    40% {
-        transform: rotate3d(10, 10, -10, 50deg) scale(1);
-    }
-
-    60% {
-        transform: rotate3d(-10, 10, 10, 50deg) scale(1.2);
-      }
-
-    80% {
-        transform: rotate3d(10, 10, 10, 50deg) scale(1);
-    }
-
-  }
