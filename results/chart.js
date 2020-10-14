@@ -13,7 +13,7 @@ buildTable(resultsArray);
 var ctx = document.getElementById('myChart').getContext('2d');
 
 const pokeName = resultsArray.map((item) => {
-    return item.pokeName;
+    return item.pokemon;
 });
 
 const captured = resultsArray.map((item) => {

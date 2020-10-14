@@ -16,10 +16,40 @@ export function findByName(pokemonResults, pokemonName) {
         const capturedPokemon = pokemonResults[i];
 
     
-        if (capturedPokemon.pokeName === pokemonName) {
+        if (capturedPokemon.pokemon === pokemonName) {
             return capturedPokemon;
         }
     }
+}
+
+// Get new encounter function
+export function getNewEncounter(someArray, pokemoneName) {
+    let pokeData = findByName(rawPokemonData, pokemoneName);
+    const encounteredPokemon = {
+        pokemon: pokeData.pokemon,
+        pokeImg: pokeData.url_image,
+        encountered: 0, 
+        captured: 0
+    };
+    someArray.push(encounteredPokemon);
+}
+// Get new capture function
+export function incrementCaptures(someArray, pokemoneName) {
+    let pokeData = findByName(someArray, pokemoneName);
+    if (!pokeData) {
+        getNewEncounter(someArray, pokemoneName);
+        pokeData = findByName(someArray, pokemoneName);
+    }
+    pokeData.captured++;
+}
+// Get new capture function
+export function incrementEncounters(someArray, pokemoneName) {
+    let pokeData = findByName(someArray, pokemoneName);
+    if (pokeData === undefined) {
+        getNewEncounter(someArray, pokemoneName);
+        pokeData = findByName(someArray, pokemoneName);
+    }
+    pokeData.encountered++;
 }
 
 // GET localStorage function
@@ -40,7 +70,7 @@ export function setInLocalStorage(key, value) {
 
 // Table Functions
 export function tableData(arr, item) {
-    const returnArray = [];
+    let returnArray = [];
     arr.forEach(pokemon => {
         let returnItem = null;
         if (item === 'encountered' || item === 'captured') returnItem = pokemon[item];
@@ -54,8 +84,8 @@ export function buildTable(resultsArray) {
     const capturedTable = document.getElementById('captured');
     const encounteredTable = document.getElementById('encountered');
     resultsArray.forEach(pokemon => {
-        // const url = pokemon.pokeImg;
-        const name = pokemon.pokeName;
+        const url = pokemon.pokeImg;
+        const name = pokemon.pokemon;
         const timesCaptured = pokemon.captured;
         const timesEncountered = pokemon.encountered;
         const rowEl = document.createElement('tr');
@@ -65,11 +95,11 @@ export function buildTable(resultsArray) {
         const encounteredEl = document.createElement('td');
         
         nameEl.textContent = name;
-        imgEl.src = `${pokemon.pokeImg}`;
+        imgEl.src = url;
         imgEl.alt = `Picture of ${name}`;
         imgEl.style.width = '50px';
         encounteredEl.textContent = timesEncountered;
-        pokemonBoxEl. append(imgEl, nameEl);
+        pokemonBoxEl.append(imgEl, nameEl);
         rowEl.append(pokemonBoxEl, encounteredEl);
         if (timesCaptured > 0) {
             const caughtEl = document.createElement('td');
