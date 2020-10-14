@@ -1,6 +1,6 @@
 // import functions and grab DOM elements
 import { rawPokemonData } from './pokemon-data.js';
-import { getRandomPokemon, findByName, setInLocalStorage, getNewEncounter, incrementEncounters, incrementCaptures } from './pokemon-utils.js';
+import { getRandomPokemon, setInLocalStorage, incrementEncounters, incrementCaptures } from './pokemon-utils.js';
 // import { images, radios, caughtDiv, moreButton } from './pokemon-const.js';
 
 const images = document.querySelectorAll('label > img');
@@ -22,40 +22,50 @@ export function renderRandomPokemon() {
     let thirdPokemon = getRandomPokemon(rawPokemonData);
     
     while (firstPokemon.id === secondPokemon.id || secondPokemon.id === thirdPokemon.id || thirdPokemon.id === firstPokemon.id) {
-        firstPokemon = getRandomPokemon(rawPokemonData);
+        // firstPokemon = getRandomPokemon(rawPokemonData);
         secondPokemon = getRandomPokemon(rawPokemonData);
         thirdPokemon = getRandomPokemon(rawPokemonData);
     }
     
     radios[0].value = firstPokemon.pokemon;
     images[0].src = firstPokemon.url_image;
+    radios[0].checked = false;
     
     radios[1].value = secondPokemon.pokemon;
     images[1].src = secondPokemon.url_image;
+    radios[1].checked = false;
     
     radios[2].value = thirdPokemon.pokemon;
     images[2].src = thirdPokemon.url_image;
+    radios[1].checked = false;
 }
 renderRandomPokemon();
+
+//  increment encountered
+
+// for (let i = 0; i < radios.length; i++) {
+//     const item = radios[i];
+//     incrementEncounters(pokemonResults, item.value);
+// }
 
 // set event listeners to update state and DOM
 for (let i = 0; i < radios.length; i++) {
     radios[i].addEventListener('change', (e) => {	
-        incrementEncounters(pokemonResults, radios[i].value);
-    console.log(e.target.value);
-        caughtDiv.classList.remove('hidden');
+       incrementEncounters(pokemonResults, radios[0].value);
+       incrementEncounters(pokemonResults, radios[1].value);
+       incrementEncounters(pokemonResults, radios[2].value);
+    //    console.log(myInc);
+       console.log(pokemonResults);
+    //    console.log(radios[i].value);
 
-        // radios.forEach((radio) => {
-        //     incrementEncounters(pokemonResults, radio.value);
-        // });
-
-        for (let i = 0; i < radios.length; i++) {
-            radios[i].disabled = true;
-            images[i].style.opacity = .5;
-        }
+    //    console.log(radios[0]);
+    //    console.log(radios[1]);
+    //    console.log(radios[2]);
+       caughtDiv.classList.remove('hidden');
+       radios[i].disabled = true;
+        images[i].style.opacity = .5;
         incrementCaptures(pokemonResults, e.target.value);
-
-            console.log(pokemonResults);
+        console.log(pokemonResults);
 
         setInLocalStorage('RESULTS', pokemonResults);
     });

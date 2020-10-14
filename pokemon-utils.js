@@ -16,7 +16,7 @@ export function findByName(pokemonResults, pokemonName) {
         const capturedPokemon = pokemonResults[i];
 
     
-        if (capturedPokemon.pokeName === pokemonName) {
+        if (capturedPokemon.pokemon === pokemonName) {
             return capturedPokemon;
         }
     }
@@ -26,7 +26,7 @@ export function findByName(pokemonResults, pokemonName) {
 export function getNewEncounter(someArray, pokemoneName) {
     let pokeData = findByName(rawPokemonData, pokemoneName);
     const encounteredPokemon = {
-        pokeName: pokeData.pokemon,
+        pokemon: pokeData.pokemon,
         pokeImg: pokeData.url_image,
         encountered: 0, 
         captured: 0
@@ -45,7 +45,7 @@ export function incrementCaptures(someArray, pokemoneName) {
 // Get new capture function
 export function incrementEncounters(someArray, pokemoneName) {
     let pokeData = findByName(someArray, pokemoneName);
-    if (!pokeData) {
+    if (pokeData === undefined) {
         getNewEncounter(someArray, pokemoneName);
         pokeData = findByName(someArray, pokemoneName);
     }
@@ -70,7 +70,7 @@ export function setInLocalStorage(key, value) {
 
 // Table Functions
 export function tableData(arr, item) {
-    const returnArray = [];
+    let returnArray = [];
     arr.forEach(pokemon => {
         let returnItem = null;
         if (item === 'encountered' || item === 'captured') returnItem = pokemon[item];
@@ -85,7 +85,7 @@ export function buildTable(resultsArray) {
     const encounteredTable = document.getElementById('encountered');
     resultsArray.forEach(pokemon => {
         const url = pokemon.pokeImg;
-        const name = pokemon.pokeName;
+        const name = pokemon.pokemon;
         const timesCaptured = pokemon.captured;
         const timesEncountered = pokemon.encountered;
         const rowEl = document.createElement('tr');
@@ -99,7 +99,7 @@ export function buildTable(resultsArray) {
         imgEl.alt = `Picture of ${name}`;
         imgEl.style.width = '50px';
         encounteredEl.textContent = timesEncountered;
-        pokemonBoxEl. append(imgEl, nameEl);
+        pokemonBoxEl.append(imgEl, nameEl);
         rowEl.append(pokemonBoxEl, encounteredEl);
         if (timesCaptured > 0) {
             const caughtEl = document.createElement('td');
