@@ -1,12 +1,25 @@
 
+import { getFromLocalStorage } from '../pokemon-utils.js';
+
+const resultsArray = getFromLocalStorage('RESULTS');
+console.log(resultsArray);
+
 var ctx = document.getElementById('myChart').getContext('2d');
+
+const pokeName = resultsArray.map((item) => {
+    return item.pokeName;
+});
+
+const captured = resultsArray.map((item) => {
+    return item.captured;
+});
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: pokeName,
         datasets: [{
             label: '# of Captured Pokemon',
-            data: [12, 19, 3, 5, 2, 3, 5, 5, 5, 5],
+            data: captured,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.70)',
                 'rgba(54, 162, 235, 0.70)',
@@ -14,10 +27,14 @@ var myChart = new Chart(ctx, {
                 'rgba(75, 192, 192, 0.70)',
                 'rgba(153, 102, 255, 0.70)',
                 'rgba(255, 159, 64, 0.70)',
+                'rgba(255, 99, 132, 0.70)',
+                'rgba(54, 162, 235, 0.70)',
+                'rgba(255, 206, 86, 0.70)',
+                'rgba(75, 192, 192, 0.70)',
                 'rgba(153, 102, 255, 0.70)',
                 'rgba(255, 159, 64, 0.70)',
-                'rgba(153, 102, 255, 0.70)',
-                'rgba(255, 159, 64, 0.70)',
+                'rgba(255, 99, 132, 0.70)',
+                'rgba(54, 162, 235, 0.70)',
             ],
             borderColor: [
                 'rgba(255, 99, 132, 100)',
@@ -25,11 +42,15 @@ var myChart = new Chart(ctx, {
                 'rgba(255, 206, 86, 1)',
                 'rgba(75, 192, 192, 1)',
                 'rgba(153, 102, 255, 1)',
+                'rgba(255, 99, 132, 100)',
+                'rgba(54, 162, 235, 100)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
                 'rgba(153, 102, 255, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+                'rgba(255, 99, 132, 100)',
+                'rgba(54, 162, 235, 100)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
             ],
             borderWidth: 1
         }]

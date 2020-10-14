@@ -1,11 +1,12 @@
 // import functions and grab DOM elements
 import { rawPokemonData } from './pokemon-data.js';
-// import { getRandomPokemon, renderRandomPokemon, findByName } from './pokemon-utils.js';
+import { getRandomPokemon, findByName, setInLocalStorage } from './pokemon-utils.js';
+// import { images, radios, caughtDiv, moreButton } from './pokemon-const.js';
 
-const images = document.querySelectorAll('label > img');
-const radios = document.querySelectorAll('input');
-const caughtDiv = document.querySelector('#caught-div');
-const moreButton = document.querySelector('button');
+export const images = document.querySelectorAll('label > img');
+export const radios = document.querySelectorAll('input');
+export const caughtDiv = document.querySelector('#caught-div');
+export const moreButton = document.querySelector('button');
 //Add back it if you get a chance to render pokemon neam on UX
 // const captured = document.querySelector('#captured-pokemon');
 
@@ -13,31 +14,24 @@ const moreButton = document.querySelector('button');
 let captures = 10;
 let pokemonResults = [];
 
-
-
-function getRandomPokemon(someArray) {
-    const index = Math.floor(Math.random() * someArray.length);
-
-    return someArray[index];
-}
-
-
 // Render Random Pokemon Fuction - loops through raw data to update DOM
-function renderRandomPokemon() {
+export function renderRandomPokemon() {
 
     let firstPokemon = getRandomPokemon(rawPokemonData);
     let secondPokemon = getRandomPokemon(rawPokemonData);
     let thirdPokemon = getRandomPokemon(rawPokemonData);
     
-    while (firstPokemon.id === secondPokemon.id) {
+    while (firstPokemon.id === secondPokemon.id || secondPokemon.id === thirdPokemon.id || thirdPokemon.id === firstPokemon.id) {
         firstPokemon = getRandomPokemon(rawPokemonData);
-    }
-    while (secondPokemon.id === thirdPokemon.id) {
         secondPokemon = getRandomPokemon(rawPokemonData);
-    }
-    while (thirdPokemon.id === firstPokemon.id) {
         thirdPokemon = getRandomPokemon(rawPokemonData);
     }
+    // while (secondPokemon.id === thirdPokemon.id) {
+        
+    // }
+    // while (thirdPokemon.id === firstPokemon.id) {
+        
+    // }
     
     radios[0].value = firstPokemon.pokemon;
     images[0].src = firstPokemon.url_image;
@@ -49,7 +43,6 @@ function renderRandomPokemon() {
     images[2].src = thirdPokemon.url_image;
 }
 renderRandomPokemon();
-
 
 // set event listeners to update state and DOM
 for (let i = 0; i < radios.length; i++) {
@@ -78,27 +71,13 @@ for (let i = 0; i < radios.length; i++) {
             images[i].style.opacity = .5;
         }
 
-
         let capturedPokemon = findByName(pokemonResults, e.target.value);
         capturedPokemon.captured++;
 
     console.log(pokemonResults);
-  
-        // renderRandomPokemon();
 
+        setInLocalStorage('RESULTS', pokemonResults);
     });
-}
-// Find Captured Pokemon By ID function to push into capturedPokemonArray for results
-function findByName(pokemonResults, pokemonName) {
-
-    for (let i = 0; i < pokemonResults.length; i++) {
-        const capturedPokemon = pokemonResults[i];
-
-    
-        if (capturedPokemon.pokeName === pokemonName) {
-            return capturedPokemon;
-        }
-    }
 }
 
 moreButton.addEventListener('click', () => {
@@ -110,7 +89,6 @@ moreButton.addEventListener('click', () => {
     }
     if (captures === 0) {
         // radios[i].disabled = true;
-      
         window.location.href = '../results/index.html';
     }
     renderRandomPokemon();
