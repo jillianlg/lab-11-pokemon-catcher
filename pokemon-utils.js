@@ -1,4 +1,4 @@
-// import { rawPokemonData } from './pokemon-data.js';
+import { rawPokemonData } from './pokemon-data.js';
 // import { images, radios } from './pokemon-const.js';
 
 export function getRandomPokemon(someArray) {
@@ -9,7 +9,7 @@ export function getRandomPokemon(someArray) {
 
 
 
-// Find Captured Pokemon By ID function to push into capturedPokemonArray for results
+// Find Captured Pokemon By NAME function to push into capturedPokemonArray for results
 export function findByName(pokemonResults, pokemonName) {
 
     for (let i = 0; i < pokemonResults.length; i++) {
@@ -36,4 +36,48 @@ export function setInLocalStorage(key, value) {
     localStorage.setItem(key, stringyItem);
 
     return value;
+}
+
+// Table Functions
+export function tableData(arr, item) {
+    const returnArray = [];
+    arr.forEach(pokemon => {
+        let returnItem = null;
+        if (item === 'encountered' || item === 'captured') returnItem = pokemon[item];
+        else returnItem = findByName(arr, item)[item];
+        returnArray.push(returnItem);
+    });
+    return returnArray;
+}
+
+export function buildTable(resultsArray) {
+    const capturedTable = document.getElementById('captured');
+    const encounteredTable = document.getElementById('encountered');
+    resultsArray.forEach(pokemon => {
+        // const url = pokemon.pokeImg;
+        const name = pokemon.pokeName;
+        const timesCaptured = pokemon.captured;
+        const timesEncountered = pokemon.encountered;
+        const rowEl = document.createElement('tr');
+        const pokemonBoxEl = document.createElement('td');
+        const nameEl = document.createElement('div');
+        const imgEl = document.createElement('img');
+        const encounteredEl = document.createElement('td');
+        
+        nameEl.textContent = name;
+        imgEl.src = `${pokemon.pokeImg}`;
+        imgEl.alt = `Picture of ${name}`;
+        imgEl.style.width = '50px';
+        encounteredEl.textContent = timesEncountered;
+        pokemonBoxEl. append(imgEl, nameEl);
+        rowEl.append(pokemonBoxEl, encounteredEl);
+        if (timesCaptured > 0) {
+            const caughtEl = document.createElement('td');
+            caughtEl.textContent = timesCaptured;
+            rowEl.append(caughtEl);
+            capturedTable.append(rowEl);
+        } else {
+            encounteredTable.append(rowEl);
+        }
+    });
 }

@@ -9,29 +9,52 @@
     <link rel="stylesheet" href="../styles/reset.css">
     <link rel="stylesheet" href="../styles/chart.css">
     <link rel="stylesheet" href="../styles/home.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>    
-    <title>Pokemon Catcher Chart</title>
+    <title>Pokemon Catcher Results</title>
 </head>
 
 <body>
     <header>
         <div class="gutter-right logo">
-            <img src="../assets/big-logo.png"/>
+            <img src="../assets/Poke_Ball.png"/>
         </div>
     </header>
     <main>
-        <section>
+        <img src="../assets/Poke-Catcher.png" alt="">
+        <button id="new-button" class="play-again">New Game</button>
+        <section class="results-table">
+            <div> <h2>Caught Pokemon</h2>
+                <table>
+                    <thead>
+                        <th>Name</th>
+                        <th>Times Encountered</th>
+                        <th>Times Captured</th>
+                    </thead>
+                    <tbody id="captured"></tbody>
+                </table>
+            </div>
+            <div> <h2>Encountered Pokemon</h2>
+                <table>
+                    <thead>
+                        <th>Name</th>
+                        <th>Times Encountered</th>
+                    </thead>
+                    <tbody id="encountered"></tbody>
+                    
+                </table>
+    
+            </div> 
+        </section>
+        <section class="results-chart">
             <canvas id="myChart" width="450" height="400"></canvas>
         </section>
         <!-- <section>
             <canvas id="myChart-2" width="400" height="200"></canvas>
         </section> -->
-        <button>Play Again</button>
     </main>
     <footer>
         <div class="copy gutter-right">&copy; 2020 Alchemy Code Lab</div>
     </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>    
     <script type="module" src="chart.js"></script>
 </body>
 

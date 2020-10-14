@@ -1,9 +1,15 @@
 
-import { getFromLocalStorage } from '../pokemon-utils.js';
+import { getFromLocalStorage, buildTable } from '../pokemon-utils.js';
 
 const resultsArray = getFromLocalStorage('RESULTS');
-console.log(resultsArray);
 
+const resetButton = document.getElementById('new-button');
+
+
+// Table Data
+buildTable(resultsArray);
+
+// Chart Data
 var ctx = document.getElementById('myChart').getContext('2d');
 
 const pokeName = resultsArray.map((item) => {
@@ -14,9 +20,11 @@ const captured = resultsArray.map((item) => {
     return item.captured;
 });
 
-// const encountered = resultsArray.map((item) => {
-//     return item.encountered;
-// });
+
+resetButton.addEventListener('click', ()=> {
+    window.location = '../index.html';
+});
+
 
 var myChart = new Chart(ctx, {
     type: 'bar',
@@ -70,6 +78,12 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+
+
+
+// const encountered = resultsArray.map((item) => {
+//     return item.encountered;
+// });
 
 // var myChart-2 = new Chart2(ctx, {
 //     type: 'bar',
