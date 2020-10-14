@@ -3,10 +3,10 @@ import { rawPokemonData } from './pokemon-data.js';
 import { getRandomPokemon, findByName, setInLocalStorage } from './pokemon-utils.js';
 // import { images, radios, caughtDiv, moreButton } from './pokemon-const.js';
 
-export const images = document.querySelectorAll('label > img');
-export const radios = document.querySelectorAll('input');
-export const caughtDiv = document.querySelector('#caught-div');
-export const moreButton = document.querySelector('button');
+const images = document.querySelectorAll('label > img');
+const radios = document.querySelectorAll('input');
+const caughtDiv = document.querySelector('#caught-div');
+const moreButton = document.querySelector('button');
 //Add back it if you get a chance to render pokemon neam on UX
 // const captured = document.querySelector('#captured-pokemon');
 
@@ -26,12 +26,6 @@ export function renderRandomPokemon() {
         secondPokemon = getRandomPokemon(rawPokemonData);
         thirdPokemon = getRandomPokemon(rawPokemonData);
     }
-    // while (secondPokemon.id === thirdPokemon.id) {
-        
-    // }
-    // while (thirdPokemon.id === firstPokemon.id) {
-        
-    // }
     
     radios[0].value = firstPokemon.pokemon;
     images[0].src = firstPokemon.url_image;
@@ -56,6 +50,7 @@ for (let i = 0; i < radios.length; i++) {
             if (!encounteredPokemon) {
                 encounteredPokemon = {
                     pokeName: radio.value,
+                    pokeImg: encounteredPokemon.url_image,
                     encountered: 1, 
                     captured: 0 
                 },
@@ -74,7 +69,7 @@ for (let i = 0; i < radios.length; i++) {
         let capturedPokemon = findByName(pokemonResults, e.target.value);
         capturedPokemon.captured++;
 
-    console.log(pokemonResults);
+    console.log(capturedPokemon);
 
         setInLocalStorage('RESULTS', pokemonResults);
     });
@@ -93,3 +88,4 @@ moreButton.addEventListener('click', () => {
     }
     renderRandomPokemon();
 });
+
