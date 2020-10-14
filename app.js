@@ -89,7 +89,7 @@ moreButton.addEventListener('click', () => {
     }
     if (captures === 0) {
         // radios[i].disabled = true;
-        window.location.href = '../results/index.html';
+        window.location.href = './results/index.html';
     }
     renderRandomPokemon();
 });
