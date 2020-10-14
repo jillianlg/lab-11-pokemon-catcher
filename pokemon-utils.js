@@ -54,7 +54,7 @@ export function buildTable(resultsArray) {
     const capturedTable = document.getElementById('captured');
     const encounteredTable = document.getElementById('encountered');
     resultsArray.forEach(pokemon => {
-        // const url = pokemon.pokeImg;
+        const url = pokemon.pokeImg;
         const name = pokemon.pokeName;
         const timesCaptured = pokemon.captured;
         const timesEncountered = pokemon.encountered;
@@ -65,7 +65,7 @@ export function buildTable(resultsArray) {
         const encounteredEl = document.createElement('td');
         
         nameEl.textContent = name;
-        imgEl.src = `${pokemon.pokeImg}`;
+        imgEl.src = url;
         imgEl.alt = `Picture of ${name}`;
         imgEl.style.width = '50px';
         encounteredEl.textContent = timesEncountered;

@@ -46,11 +46,13 @@ for (let i = 0; i < radios.length; i++) {
         caughtDiv.classList.remove('hidden');
 
         radios.forEach((radio) => {
+            let pokeData = findByName(rawPokemonData, e.target.value);
+            console.log(radio.value);
             let encounteredPokemon = findByName(pokemonResults, radio.value);
             if (!encounteredPokemon) {
                 encounteredPokemon = {
                     pokeName: radio.value,
-                    pokeImg: encounteredPokemon.url_image,
+                    pokeImg: pokeData.url_image,
                     encountered: 1, 
                     captured: 0 
                 },
@@ -69,7 +71,7 @@ for (let i = 0; i < radios.length; i++) {
         let capturedPokemon = findByName(pokemonResults, e.target.value);
         capturedPokemon.captured++;
 
-    console.log(capturedPokemon);
+    console.log(pokemonResults);
 
         setInLocalStorage('RESULTS', pokemonResults);
     });
