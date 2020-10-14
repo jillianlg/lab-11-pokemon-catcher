@@ -100,7 +100,7 @@ section {
 header {
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: repeat(4, 200px);
+    grid-template-columns: repeat(4, auto);
     background-color: var(--color2);
     height: var(--header-height);
     box-shadow: var(--shadow);
@@ -113,17 +113,15 @@ h2 {
 
 .gutter-right {
     margin-right: 10px;
-    grid-column: 5/ span 1;
+    grid-column:65/ span 1;
 }
 
 header img {
-    /* height: var(--header-height); */
     height: 70px;
     
 }
 
 header button {
-    /* height: var(--header-height); */
     height: 70px;
     
 }

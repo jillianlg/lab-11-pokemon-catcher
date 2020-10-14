@@ -100,19 +100,13 @@ h2 {
 }
 
 .gutter-right {
-    margin-right: 50px;
+    margin-right: 20px;
     margin-top: 15px;
-}
-
-.main-logo {
-    animation: pulse 5s infinite ease-in-out;
 }
 
 header img {
     height: 70px;
 }
-
-
 
 content {
     width: 80%;

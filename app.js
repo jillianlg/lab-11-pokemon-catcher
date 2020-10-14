@@ -42,8 +42,12 @@ renderRandomPokemon();
 for (let i = 0; i < radios.length; i++) {
     radios[i].addEventListener('change', (e) => {	
         caughtDiv.classList.remove('hidden');
-        radios[i].disabled = true;
-        images[i].style.opacity = .5;
+        // radios[i].disabled = true;
+        // images[i].style.opacity = .5;
+        for (let i = 0; i < radios.length; i++) {
+            radios[i].disabled = true;
+            images[i].style.opacity = .5;
+        }
 
         incrementEncounters(pokemonResults, radios[0].value);
         incrementEncounters(pokemonResults, radios[1].value);
