@@ -30,4 +30,3 @@ On the pokemon page, we need these HTML elements to interact with:
 - Reset button
     - Return player to main Pokemon page.
 
-_Refer to ![planning wireframe](assets/planning wireframe.png) for planning diagram._
