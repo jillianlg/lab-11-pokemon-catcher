@@ -34,7 +34,7 @@ export function renderRandomPokemon() {
     
     radios[2].value = thirdPokemon.pokemon;
     images[2].src = thirdPokemon.url_image;
-    radios[1].checked = false;
+    radios[2].checked = false;
 }
 renderRandomPokemon();
 
@@ -60,9 +60,11 @@ for (let i = 0; i < radios.length; i++) {
 
 moreButton.addEventListener('click', () => {
     captures--;
+    caughtDiv.classList.add('hidden');
     for (let i = 0; i < radios.length; i++) {
         radios[i].disabled = false;
         images[i].style.opacity = 100;
+
     }
     if (captures === 0) {
 
